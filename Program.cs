@@ -38,7 +38,6 @@ namespace ConsoleApp1
                 "овощи"
             );
 
-            // ДЕМОНСТРАЦИЯ: вывод свойств объектов
             Console.WriteLine("Продукт 1:");
             Console.WriteLine($"  Артикул: {product1.Article}");
             Console.WriteLine($"  Название: {product1.Name}");
