@@ -1,138 +1,140 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using ConsoleApp1;
+using System;
+using System.Diagnostics;
 
-//namespace ConsoleApp1
-//{
-//    internal class FoodProduct
-//    {
-//        // ПРИВАТНЫЕ ПОЛЯ (инкапсуляция)
-//        private int _article;           // артикул
-//        private string _name;            // название
-//        private decimal _price;          // цена
-//        private DateTime _expirationDate;// срок годности
-//        private string _category;        // категория
+namespace ConsoleApp1
+{
+    internal class FoodProduct : Product
+    {
+        private string _name;
+        private DateTime _expirationDate;
+        private string _category;
 
-//        // КОНСТРУКТОР 1: по умолчанию (без параметров)
-//        public FoodProduct()
-//        {
-//            _article = 0;
-//            _name = "Неизвестно";
-//            _price = 0;
-//            _expirationDate = DateTime.Now;
-//            _category = "Неизвестно";
-//        }
+        public FoodProduct() : base()
+        {
+            _name = "Неизвестно";
+            _expirationDate = DateTime.Now;
+            _category = "Неизвестно";
+        }
 
-//        // КОНСТРУКТОР 2: с параметрами (обычные параметры)
-//        public FoodProduct(int article, string name, decimal price, DateTime expirationDate, string category)
-//        {
-//            _article = article;
-//            _name = name;
-//            _price = price;
-//            _expirationDate = expirationDate;
-//            _category = category;
-//        }
+        public FoodProduct(int article, string name, decimal price, DateTime expirationDate, string category)
+            : base(article, price)
+        {
+            _name = name;
+            _expirationDate = expirationDate;
+            _category = category;
+        }
 
-//        // СВОЙСТВА ДЛЯ ДОСТУПА К ПОЛЯМ (инкапсуляция)
-//        public int Article
-//        {
-//            get { return _article; }
-//            set { _article = value; }
-//        }
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
 
-//        public string Name
-//        {
-//            get { return _name; }
-//            set { _name = value; }
-//        }
+        public DateTime ExpirationDate
+        {
+            get { return _expirationDate; }
+            set { _expirationDate = value; }
+        }
 
-//        public decimal Price
-//        {
-//            get { return _price; }
-//            set { _price = value; }
-//        }
+        public string Category
+        {
+            get { return _category; }
+            set { _category = value; }
+        }
 
-//        public DateTime ExpirationDate
-//        {
-//            get { return _expirationDate; }
-//            set { _expirationDate = value; }
-//        }
+        public override void ApplyDiscount(double percent)
+        {
+            Console.WriteLine($"Продукт питания: {_name}");
 
-//        public string Category
-//        {
-//            get { return _category; }
-//            set { _category = value; }
-//        }
+            if (percent > 30)
+            {
+                Console.WriteLine($"Скидка {percent}% слишком велика для продуктов питания. Максимум 30%");
+                percent = 30;
+            }
 
-//        // МЕТОД 1: проверить срок годности (используем out параметры)
-//        public void CheckExpiration(out bool isExpired, out int daysLeft)
-//        {
-//            // Вычисляем сколько дней осталось
-//            daysLeft = (_expirationDate - DateTime.Now).Days;
+            base.ApplyDiscount(percent);
+        }
 
-//            // Проверяем просрочен ли товар
-//            isExpired = daysLeft < 0;
+        public override void DisplayInfo()
+        {
+            Console.WriteLine($"Продукт питания:");
+            Console.WriteLine($"  Артикул: {Article}");
+            Console.WriteLine($"  Название: {_name}");
+            Console.WriteLine($"  Цена: {Price} руб.");
+            Console.WriteLine($"  Срок годности: {_expirationDate.ToShortDateString()}");
+            Console.WriteLine($"  Категория: {_category}");
+        }
 
-//            // Выводим результат
-//            if (isExpired)
-//            {
-//                Console.WriteLine($"Товар '{_name}' ПРОСРОЧЕН на {Math.Abs(daysLeft)} дней!");
-//            }
-//            else if (daysLeft == 0)
-//            {
-//                Console.WriteLine($"Товар '{_name}' годен только сегодня!");
-//            }
-//            else
-//            {
-//                Console.WriteLine($"Товар '{_name}' годен еще {daysLeft} дней");
-//            }
-//        }
+        public void CheckExpiration(out bool isExpired, out int daysLeft)
+        {
+            daysLeft = (_expirationDate - DateTime.Now).Days;
+            isExpired = daysLeft < 0;
 
-//        // МЕТОД 2: применить сезонную скидку (используем params)
-//        public void ApplySeasonalDiscount(params string[] seasons)
-//        {
-//            Console.WriteLine($"\nПрименяем скидки для товара '{_name}':");
-//            decimal oldPrice = _price;
+            if (isExpired)
+            {
+                Console.WriteLine($"Товар '{_name}' ПРОСРОЧЕН на {Math.Abs(daysLeft)} дней!");
+            }
+            else if (daysLeft == 0)
+            {
+                Console.WriteLine($"Товар '{_name}' годен только сегодня!");
+            }
+            else
+            {
+                Console.WriteLine($"Товар '{_name}' годен еще {daysLeft} дней");
+            }
+        }
 
-//            // Проходим по всем переданным сезонам
-//            foreach (string season in seasons)
-//            {
-//                if (season == "лето")
-//                {
-//                    _price = _price * 0.9m; // скидка 10%
-//                    Console.WriteLine("  Летняя скидка: -10%");
-//                }
-//                else if (season == "зима")
-//                {
-//                    _price = _price * 0.85m; // скидка 15%
-//                    Console.WriteLine("  Зимняя скидка: -15%");
-//                }
-//                else if (season == "весна")
-//                {
-//                    _price = _price * 0.95m; // скидка 5%
-//                    Console.WriteLine("  Весенняя скидка: -5%");
-//                }
-//                else if (season == "осень")
-//                {
-//                    _price = _price * 0.88m; // скидка 12%
-//                    Console.WriteLine("  Осенняя скидка: -12%");
-//                }
-//            }
+        public void ApplySeasonalDiscount(params string[] seasons)
+        {
+            Console.WriteLine($"\nПрименяем сезонные скидки для товара '{_name}':");
+            decimal oldPrice = Price;
 
-//            Console.WriteLine($"  Цена была: {oldPrice} руб.");
-//            Console.WriteLine($"  Цена стала: {_price} руб.");
-//        }
+            foreach (string season in seasons)
+            {
+                if (season == "лето")
+                {
+                    Price = Price * 0.9m;
+                    Console.WriteLine("  Летняя скидка: -10%");
+                }
+                else if (season == "зима")
+                {
+                    Price = Price * 0.85m;
+                    Console.WriteLine("  Зимняя скидка: -15%");
+                }
+                else if (season == "весна")
+                {
+                    Price = Price * 0.95m;
+                    Console.WriteLine("  Весенняя скидка: -5%");
+                }
+                else if (season == "осень")
+                {
+                    Price = Price * 0.88m;
+                    Console.WriteLine("  Осенняя скидка: -12%");
+                }
+            }
 
-//        // МЕТОД 3: обновить цену (используем ref параметр)
-//        public void UpdatePrice(ref decimal newPrice)
-//        {
-//            decimal oldPrice = _price;
-//            _price = newPrice;
-//            Console.WriteLine($"\nЦена товара '{_name}' обновлена:");
-//            Console.WriteLine($"  Было: {oldPrice} руб.");
-//            Console.WriteLine($"  Стало: {_price} руб.");
-//        }
-//    }
-//}
+            Console.WriteLine($"  Цена была: {oldPrice} руб.");
+            Console.WriteLine($"  Цена стала: {Price} руб.");
+        }
+
+        public void UpdatePrice(ref decimal newPrice)
+        {
+            decimal oldPrice = Price;
+            Price = newPrice;
+            Console.WriteLine($"\nЦена товара '{_name}' обновлена:");
+            Console.WriteLine($"  Было: {oldPrice} руб.");
+            Console.WriteLine($"  Стало: {Price} руб.");
+        }
+
+        protected override string GetProtectedInfo()
+        {
+            return base.GetProtectedInfo() + $", Название: {_name}";
+        }
+
+        public void ShowProtectedInfo()
+        {
+            Console.WriteLine(GetProtectedInfo());
+        }
+    }
+}
