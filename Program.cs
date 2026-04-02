@@ -8,7 +8,7 @@ ElectronicsProduct phone = new ElectronicsProduct(201, "Galaxy S21", 50000, 24, 
 ElectronicsProduct laptop = new ElectronicsProduct(202, "MacBook", 150000, 36, "Apple");
 
 ClothingProduct tshirt = new ClothingProduct(301, "Футболка", 1500, "M", "Хлопок");
-ClothingProduct coat = new ClothingProduct(302, "Пальто", 8000, "XL", "Шерсть");
+ClothingProduct coat = new ClothingProduct(302, "Пальто", 8000, "L", "Шерсть");
 
 
 Console.WriteLine("1. Обработка продуктов питания");
