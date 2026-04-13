@@ -11,7 +11,7 @@ ClothingProduct tshirt = new ClothingProduct(301, "Футболка", 1500, "M",
 ClothingProduct coat = new ClothingProduct(302, "Пальто", 8000, "L", "Шерсть");
 
 
-Console.WriteLine("1. Обработка продуктов питания");
+Console.WriteLine("1.Обработка продуктов питания");
 DiscountProcessor<FoodProduct> foodProc = new DiscountProcessor<FoodProduct>();
 foodProc.AddProduct(milk);
 foodProc.AddProduct(chicken);
@@ -25,7 +25,7 @@ List<FoodProduct> cheapFood = foodProc.FindByPriceRange(0, 100);
 Console.WriteLine($"\nПродукты до 100 руб: {cheapFood.Count}");
 
 
-Console.WriteLine("\n2. Обработка электроники");
+Console.WriteLine("\n2.Обработка электроники");
 DiscountProcessor<ElectronicsProduct> techProc = new DiscountProcessor<ElectronicsProduct>();
 techProc.AddProduct(phone);
 techProc.AddProduct(laptop);
@@ -33,7 +33,7 @@ techProc.ApplyDiscountToAll(25);
 techProc.PrintDiscountedPrices();
 
 
-Console.WriteLine("\n3. Обработка одежды");
+Console.WriteLine("\n3.Обработка одежды");
 DiscountProcessor<ClothingProduct> clothProc = new DiscountProcessor<ClothingProduct>();
 clothProc.AddProduct(tshirt);
 clothProc.AddProduct(coat);
