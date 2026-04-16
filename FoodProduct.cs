@@ -2,7 +2,7 @@
 
 namespace ConsoleApp1
 {
-    class FoodProduct : Product
+    public class FoodProduct : Product
     {
         private string _name;
         private DateTime _expirationDate;
@@ -20,6 +20,12 @@ namespace ConsoleApp1
         {
             get { return _name; }
             set { _name = value; }
+        }
+
+        public DateTime ExpirationDate
+        {
+            get { return _expirationDate; }
+            set { _expirationDate = value; }
         }
 
         public override void ApplyDiscount(double percent)

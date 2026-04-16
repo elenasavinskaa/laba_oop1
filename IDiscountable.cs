@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    interface IDiscountable
+    public interface IDiscountable
     {
         void ApplyDiscount(double percent);
     }

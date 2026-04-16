@@ -2,7 +2,7 @@
 
 namespace ConsoleApp1
 {
-    abstract class Product : IDiscountable
+    public abstract class Product : IDiscountable
     {
         private int _article;
         private double _price;
@@ -29,11 +29,23 @@ namespace ConsoleApp1
         {
             if (percent > 0 && percent <= 100)
             {
-                _price = _price - (_price * percent / 100);
+                _price -= _price * percent / 100;  
                 Console.WriteLine($"Цена после скидки: {_price}");
             }
         }
 
         public abstract void DisplayInfo();
+
+        public static bool operator ==(Product a, Product b)
+        {
+            if (a is null && b is null) return true;
+            if (a is null || b is null) return false;
+            return a.Article == b.Article;
+        }
+
+        public static bool operator !=(Product a, Product b)
+        {
+            return !(a == b);
+        }
     }
 }

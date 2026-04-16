@@ -2,7 +2,7 @@
 
 namespace ConsoleApp1
 {
-    class ElectronicsProduct : Product
+    public class ElectronicsProduct : Product
     {
         private string _name;
         private int _warrantyMonths;

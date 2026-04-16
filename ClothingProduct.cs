@@ -2,7 +2,7 @@
 
 namespace ConsoleApp1
 {
-    class ClothingProduct : Product
+    public class ClothingProduct : Product
     {
         private string _name;
         private string _size;
@@ -26,7 +26,7 @@ namespace ConsoleApp1
         {
             if (_size == "XL" || _size == "XXL")
             {
-                percent = percent + 5;
+                percent += 5;  // составной оператор
                 Console.WriteLine($"Размер {_size} +5% скидка");
             }
             base.ApplyDiscount(percent);
